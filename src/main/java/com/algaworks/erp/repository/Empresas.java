@@ -27,13 +27,16 @@ public class Empresas implements Serializable {
         return manager.find(Empresa.class, id);
     }
 
-    public List pesquisar(String nome) {
-        String jpql = "from Empresa where nomeFantasia like:nomeFantasia";
+    public List<Empresa> pesquisar(String nome) {
+        String jpql = "from Empresa where razaoSocial like:razaoSocial";
 
         TypedQuery<Empresa> query = manager
                 .createQuery(jpql, Empresa.class);
-        query.setParameter("nomeFantasia", nome + "%");
+        query.setParameter("razaoSocial", nome + "%");
         return query.getResultList();
+    }
+    public List<Empresa> todas() {
+        return manager.createQuery("from Empresa", Empresa.class).getResultList();
     }
 
     public Empresa guardar(Empresa empresa) {
